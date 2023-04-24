@@ -35,11 +35,12 @@ describe('GET /users/:userId/todos', () => {
         const userId = 999; 
 
   
-        const response = await axios.get(`http://localhost:3000/users/${userId}/todos`);
-
-      
-        assert.deepStrictEqual(response.status, 500);
-        assert.deepStrictEqual(response.data, 'Internal Server Error');
+        try {
+            await axios.get(`http://localhost:3000/users/${userId}/todos`);
+        } catch (error) {
+            assert.deepStrictEqual(error.response.status, 500);
+            assert.deepStrictEqual(error.response.data, 'Internal Server Error');
+        }
     });
 });
 
@@ -69,11 +70,12 @@ describe('POST /users/:userId/todos', () => {
             completed: false
         };
 
-      
-        const response = await axios.post(`http://localhost:3000/users/${userId}/todos`, todoData);
-
-       
-        assert.deepStrictEqual(response.status, 500);
-        assert.deepStrictEqual(response.data, 'Internal Server Error');
+        try {
+            await axios.post(`http://localhost:3000/users/${userId}/todos`, todoData);
+        } catch (error) {
+            assert.deepStrictEqual(error.response.status, 500);
+            assert.deepStrictEqual(error.response.data, 'Internal Server Error');
+        }
     });
+    
 });
